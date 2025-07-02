@@ -1,15 +1,19 @@
       let updateIndex = -1;
+
       function addToCart() {
         const itemName = document.getElementById("itemName").value;
         const itemPrice = document.getElementById("itemPrice").value;
 
-        // let formatRupiah = itemPrice.toLocaleString("id-ID", {
-        //   style: "currency",
-        //   currency: "IDR",
-        // });
 
         if (!itemName && !itemPrice) {
-          alert("Please fill name and price before submit");
+            Swal.fire({
+              icon: 'warning',
+              title: 'Oops!',
+              text: 'Please fill name and price before submit!',
+              customClass: {
+                popup: 'swal-font'
+              }
+            });
           return false;
         }
 
@@ -17,12 +21,30 @@
 
         if (updateIndex === -1) {
           cartList.push({ itemName, itemPrice });
-          alert("Data Saved!");
+          Swal.fire({
+            title: "Data Saved!",
+            imageUrl: "https://i.chzbgr.com/full/7016995584/h67AD50C2/i-am-a-shopping-cart-you-are-required-to-put-food-in-me/400/350",
+            imageWidth: 400,
+            imageHeight: 350,
+            imageAlt: "Custom image",
+            customClass: {
+              popup: 'swal-font'
+            }
+          });
         } else {
           cartList[updateIndex] = { itemName, itemPrice };
           updateIndex = -1;
-          document.getElementById("addItemBtn").innerText = "Tambah Keranjang";
-          alert("Data Updated");
+          document.getElementById("addItemBtn").innerText = "Update Item";
+          Swal.fire({
+            title: "Data Updated!",
+            imageUrl: "https://img-9gag-fun.9cache.com/photo/aXoNRgb_460s.jpg",
+            imageWidth: 460,
+            imageHeight: 345,
+            imageAlt: "Custom image",
+            customClass: {
+              popup: 'swal-font'
+            }
+          });
         }
 
         localStorage.setItem("cart", JSON.stringify(cartList));
@@ -31,6 +53,7 @@
 
         window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
       }
+
 
       function displayData() {
         const tableBody = document.getElementById("table");
@@ -127,6 +150,7 @@
 
       function removeitem(index) {
         const cartList = JSON.parse(localStorage.getItem("cart")) || [];
+
         if (index < 0 || index >= cartList.length) {
           console.warn("Attempted to remove item with invalid index:", index);
           return;
@@ -134,28 +158,37 @@
 
         const itemToRemove = cartList[index];
 
-        const isConfirmed = window.confirm(
-          `Are you sure you want to delete "${itemToRemove.itemName}"?`
-        );
-
-        if (!isConfirmed) {
-          return;
-        }
-
-        cartList.splice(index, 1);
-        localStorage.setItem("cart", JSON.stringify(cartList));
-        displayData();
-        Toastify({
-          text: "Item removed from cart",
-          duration: 3000,
-          gravity: "top", // `top` or `bottom`
-          position: "right", // `left`, `center` or `right`
-          stopOnFocus: true, // Prevents dismissing of toast on hover
-          style: {
-            background: "linear-gradient(to right, #00b09b, #96c93d)",
+        Swal.fire({
+          title: `Delete "${itemToRemove.itemName}"?`,
+          text: "This action cannot be undone.",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#d33",
+          cancelButtonColor: "#3085d6",
+          confirmButtonText: "Yes, delete it!",
+          customClass: {
+            popup: "swal-font", 
           },
-        }).showToast();
+        }).then((result) => {
+          if (result.isConfirmed) {
+            cartList.splice(index, 1);
+            localStorage.setItem("cart", JSON.stringify(cartList));
+            displayData();
+
+            Swal.fire({
+              title: "Deleted!",
+              text: `"${itemToRemove.itemName}" has been removed.`,
+              icon: "success",
+              showConfirmButton: false,
+              timer: 1500,
+              customClass: {
+                popup: "swal-font", 
+              },
+            });
+          }
+        });
       }
+
 
       function updateitem(index) {
         const cartList = JSON.parse(localStorage.getItem("cart")) || [];
@@ -169,14 +202,38 @@
       }
 
       function removeAllProduct() {
-        const btnRemoveAllProduct = document.getElementById("clearCartBtn");
-        if (confirm("Do you want to really delete all of your product?")) {
-          localStorage.removeItem("cart");
-          displayData();
-          displayDataPurchased();
-        } else {
-          displayData();
-        }
+      const btnRemoveAllProduct = document.getElementById("removeAllProduct");
+
+        btnRemoveAllProduct.addEventListener("click", () => {
+          Swal.fire({
+            title: "Delete all products?",
+            text: "This will clear your entire cart!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonText: "Yes, delete all",
+            cancelButtonText: "Cancel",
+            confirmButtonColor: "#d33",
+            cancelButtonColor: "#3085d6",
+            customClass: {
+              popup: "swal-font", 
+            },
+          }).then((result) => {
+            if (result.isConfirmed) {
+              localStorage.removeItem("cart");
+              displayData();
+              displayDataPurchased();
+
+              Swal.fire({
+                icon: "success",
+                title: "Cart Cleared!",
+                showConfirmButton: false,
+                timer: 1500,
+              });
+            } else {
+              displayData(); 
+            }
+          });
+        });
       }
 
       function purchaseitem(index) {
@@ -281,6 +338,7 @@
 
       function removeitempurchased(index) {
         const cartPurchasedList = JSON.parse(localStorage.getItem("purchased")) || [];
+
         if (index < 0 || index >= cartPurchasedList.length) {
           console.warn("Attempted to remove item with invalid index:", index);
           return;
@@ -288,39 +346,73 @@
 
         const itemToRemove = cartPurchasedList[index];
 
-        const isConfirmed = window.confirm(
-          `Are you sure you want to delete "${itemToRemove.itemName}"?`
-        );
-
-        if (!isConfirmed) {
-          return;
-        }
-
-        cartPurchasedList.splice(index, 1);
-        localStorage.setItem("purchased", JSON.stringify(cartPurchasedList));
-        displayDataPurchased();
-        Toastify({
-          text: "Item removed from cart",
-          duration: 3000,
-          gravity: "top", // `top` or `bottom`
-          position: "right", // `left`, `center` or `right`
-          stopOnFocus: true, // Prevents dismissing of toast on hover
-          style: {
-            background: "linear-gradient(to right, #00b09b, #96c93d)",
+        Swal.fire({
+          title: `Delete "${itemToRemove.itemName}"?`,
+          text: "This action cannot be undone.",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#d33",
+          cancelButtonColor: "#3085d6",
+          confirmButtonText: "Yes, delete it!",
+          customClass: {
+            popup: "swal-font",
           },
-        }).showToast();
-      }      
+        }).then((result) => {
+          if (result.isConfirmed) {
+            cartPurchasedList.splice(index, 1);
+            localStorage.setItem("purchased", JSON.stringify(cartPurchasedList));
+            displayDataPurchased();
+
+            Swal.fire({
+              icon: "success",
+              title: "Deleted!",
+              text: `"${itemToRemove.itemName}" has been removed.`,
+              showConfirmButton: false,
+              timer: 1500,
+              customClass: {
+                popup: "swal-font",
+              },
+            });
+          }
+        });
+      }
 
       function removeAllProductPurchased() {
-        const btnRemoveAllProduct = document.getElementById("clearCartBtn");
-        if (
-          confirm("Do you want to really delete all of your purchased product?")
-        ) {
-          localStorage.removeItem("purchased");
-          displayDataPurchased();
-        } else {
-          displayDataPurchased();
-        }
+      const btnRemoveAllProductPurchased = document.getElementById("removeAllProductPurchased");
+
+        btnRemoveAllProductPurchased.addEventListener("click", () => {
+          Swal.fire({
+            title: "Delete all products?",
+            text: "This will clear your entire purchased cart!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonText: "Yes, delete all",
+            cancelButtonText: "Cancel",
+            confirmButtonColor: "#d33",
+            cancelButtonColor: "#3085d6",
+            customClass: {
+              popup: "swal-font", 
+            },
+          }).then((result) => {
+            if (result.isConfirmed) {
+              localStorage.removeItem("purchased");
+              displayData();
+              displayDataPurchased();
+
+              Swal.fire({
+                icon: "success",
+                title: "Cart Cleared!",
+                showConfirmButton: false,
+                timer: 1500,
+                customClass: {
+                  popup: "swal-font", 
+                },
+              });
+            } else {
+              displayData(); 
+            }
+          });
+        });
       }
 
       window.onload = function () {

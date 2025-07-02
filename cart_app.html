@@ -9,7 +9,7 @@
       type="image/x-icon"
       href="https://media.licdn.com/dms/image/v2/C510BAQHD5XgrJHLh7A/company-logo_200_200/company-logo_200_200/0/1631415975507?e=2147483647&v=beta&t=aiYzl6pFQE6SxkaZepFQzGr_TkNjtTqHqKsa1rm9vwo"
     />
-    <link href="./output.css" rel="stylesheet" />
+    <link href="src/output.css" rel="stylesheet" />
     <style>
       @import url("https://fonts.googleapis.com/css2?family=Darumadrop+One&family=Mochiy+Pop+One&family=Sono:wght@200..800&display=swap");
       :root {
@@ -39,6 +39,10 @@
 
       .animate-goyang {
         animation: goyang 2s ease-in-out infinite;
+      }
+
+      .swal-font {
+        font-family: var(--sub-main);
       }
     </style>
   </head>
@@ -220,54 +224,6 @@
 
             <div id="display-mobile-data"></div>
 
-            <!-- <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 md:hidden">
-              <div class="bg-white border-gray-200 p-6 gap-3 rounded-lg shadow">
-                <div
-                  class="w-10 h-10 bg-[#d2effc] text-[#0091d4] font-extrabold flex items-center justify-center rounded-full mb-3"
-                >
-                  ${index + 1}
-                </div>
-                <div
-                  style="font-family: var(--main-font2)"
-                  class="font-bold text-zinc-950 mb-1"
-                >
-                  ${item.itemName}
-                </div>
-                <div
-                  style="font-family: var(--main-font2)"
-                  class="font-bold text-zinc-950 mb-3"
-                >
-                  Rp${item.itemPrice}
-                </div>
-                <div class="flex justify-end space-x-2 text-sm">
-                  <button
-                    type="button"
-                    style="font-family: var(--sub-main)"
-                    class="p-1.5 text-base font-medium bg-[#84B699] hover:bg-[#0A6D32] text-[#0A6D32] hover:text-white rounded"
-                    onclick="purchaseitem(${index})"
-                  >
-                    Buy
-                  </button>
-                  <button
-                    type="button"
-                    style="font-family: var(--sub-main)"
-                    class="p-1.5 text-base font-medium bg-[#F8DE88] hover:bg-[#CE6012] text-[#CE6012] hover:text-white rounded"
-                    onclick="updateitem(${index})"
-                  >
-                    Edit
-                  </button>
-                  <button
-                    type="button"
-                    style="font-family: var(--sub-main)"
-                    class="p-1.5 text-base font-medium bg-[#DF9394] hover:bg-[#A50609] text-[#A50609] hover:text-white rounded"
-                    onclick="removeitem(${index})"
-                  >
-                    Delete
-                  </button>
-                </div>
-              </div>
-            </div> -->
-
             <!-- Footer total -->
             <div class="flex items-center justify-between mt-4">
               <h3
@@ -277,6 +233,7 @@
                 You’ll Pay: Rp<span id="totalPrice">0</span>
               </h3>
               <button
+                id="removeAllProduct"
                 style="font-family: var(--main-font1)"
                 class="bg-[#A50609] text-white text-xs sm:text-sm px-2 sm:px-4 py-1 sm:py-2 rounded"
                 onclick="removeAllProduct()"
@@ -421,6 +378,7 @@
             <!-- Footer total -->
             <div class="flex justify-end items-center mt-4">
               <button
+                id="removeAllProductPurchased"
                 style="font-family: var(--main-font1)"
                 class="bg-[#A50609] text-white text-xs sm:text-sm px-2 sm:px-4 py-1 sm:py-2 rounded"
                 onclick="removeAllProductPurchased()"
@@ -434,5 +392,6 @@
     </section>
 
     <script src="/script/script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   </body>
 </html>
