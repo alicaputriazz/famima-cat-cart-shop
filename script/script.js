@@ -1,0 +1,329 @@
+      let updateIndex = -1;
+      function addToCart() {
+        const itemName = document.getElementById("itemName").value;
+        const itemPrice = document.getElementById("itemPrice").value;
+
+        // let formatRupiah = itemPrice.toLocaleString("id-ID", {
+        //   style: "currency",
+        //   currency: "IDR",
+        // });
+
+        if (!itemName && !itemPrice) {
+          alert("Please fill name and price before submit");
+          return false;
+        }
+
+        const cartList = JSON.parse(localStorage.getItem("cart")) || [];
+
+        if (updateIndex === -1) {
+          cartList.push({ itemName, itemPrice });
+          alert("Data Saved!");
+        } else {
+          cartList[updateIndex] = { itemName, itemPrice };
+          updateIndex = -1;
+          document.getElementById("addItemBtn").innerText = "Tambah Keranjang";
+          alert("Data Updated");
+        }
+
+        localStorage.setItem("cart", JSON.stringify(cartList));
+        document.getElementById("cartForm").reset();
+        displayData();
+
+        window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+      }
+
+      function displayData() {
+        const tableBody = document.getElementById("table");
+        const totalPriceElement = document.getElementById("totalPrice");
+        const tableToCard = document.getElementById("display-mobile-data")
+
+        tableBody.innerHTML = ``;
+        tableToCard.innerHTML = ``;
+        let total = 0;
+
+        const cartList = JSON.parse(localStorage.getItem("cart")) || [];
+        cartList.forEach((item, index) => {
+          tableBody.innerHTML += `
+                <tr class="">
+                    <td class="p-3 text-sm text-center">${index + 1}</td>
+                    <td class="p-3 text-sm text-center">${item.itemName}</td>
+                    <td class="p-3 text-sm text-center">Rp${parseInt(item.itemPrice).toLocaleString("id-ID")}</td> 
+                    <td class="p-3 text-sm text-center">
+                        <button type="button"
+                            style="font-family: var(--sub-main);"
+                            class="purchaseItem p-1.5 text-base font-medium  bg-[#84B699] hover:bg-[#0A6D32] text-[#0A6D32] hover:text-white rounded"
+                            onclick="purchaseitem(${index})">
+                            Buy
+                        </button>
+                        <button type="button"
+                            style="font-family: var(--sub-main);"
+                            class="p-1.5 text-base font-medium  bg-[#F8DE88] hover:bg-[#CE6012] text-[#CE6012] hover:text-white rounded"
+                            onclick="updateitem(${index})">
+                            Edit
+                        </button>
+                        <button type="button"
+                            style="font-family: var(--sub-main);"
+                            class="p-1.5 text-base font-medium  bg-[#DF9394] hover:bg-[#A50609] text-[#A50609] hover:text-white rounded"
+                            onclick="removeitem(${index})">
+                            Delete
+                        </button>
+                    </td>   
+                </tr>
+                `;
+          tableToCard.innerHTML += `
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 m-5 md:hidden">
+              <div class="bg-white border-gray-200 space-y-3 p-6 gap-3 rounded-lg shadow">
+                <div
+                  class="w-10 h-10 bg-[#d2effc] text-[#0091d4] font-extrabold flex items-center justify-center rounded-full mb-3"
+                >
+                  ${index + 1}
+                </div>
+                <div
+                  style="font-family: var(--main-font2)"
+                  class="font-bold text-zinc-950 mb-1"
+                >
+                  ${item.itemName}
+                </div>
+                <div
+                  style="font-family: var(--main-font2)"
+                  class="font-bold text-zinc-950 mb-3"
+                >
+                  Rp${parseInt(item.itemPrice).toLocaleString("id-ID")}
+                </div>
+                <div class="flex justify-end space-x-2 text-sm">
+                  <button
+                    type="button"
+                    style="font-family: var(--sub-main)"
+                    class="purchaseItem p-1.5 text-base font-medium bg-[#84B699] hover:bg-[#0A6D32] text-[#0A6D32] hover:text-white rounded"
+                    onclick="purchaseitem(${index})"
+                  >
+                    Buy
+                  </button>
+                  <button
+                    type="button"
+                    style="font-family: var(--sub-main)"
+                    class="p-1.5 text-base font-medium bg-[#F8DE88] hover:bg-[#CE6012] text-[#CE6012] hover:text-white rounded"
+                    onclick="updateitem(${index})"
+                  >
+                    Edit
+                  </button>
+                  <button
+                    type="button"
+                    style="font-family: var(--sub-main)"
+                    class="p-1.5 text-base font-medium bg-[#DF9394] hover:bg-[#A50609] text-[#A50609] hover:text-white rounded"
+                    onclick="removeitem(${index})"
+                  >
+                    Delete
+                  </button>
+                </div>
+              </div>
+            </div>
+          `;
+          total += parseInt(item.itemPrice);
+        });
+
+        totalPriceElement.innerText = total.toLocaleString("id-ID");
+      }
+
+      function removeitem(index) {
+        const cartList = JSON.parse(localStorage.getItem("cart")) || [];
+        if (index < 0 || index >= cartList.length) {
+          console.warn("Attempted to remove item with invalid index:", index);
+          return;
+        }
+
+        const itemToRemove = cartList[index];
+
+        const isConfirmed = window.confirm(
+          `Are you sure you want to delete "${itemToRemove.itemName}"?`
+        );
+
+        if (!isConfirmed) {
+          return;
+        }
+
+        cartList.splice(index, 1);
+        localStorage.setItem("cart", JSON.stringify(cartList));
+        displayData();
+        Toastify({
+          text: "Item removed from cart",
+          duration: 3000,
+          gravity: "top", // `top` or `bottom`
+          position: "right", // `left`, `center` or `right`
+          stopOnFocus: true, // Prevents dismissing of toast on hover
+          style: {
+            background: "linear-gradient(to right, #00b09b, #96c93d)",
+          },
+        }).showToast();
+      }
+
+      function updateitem(index) {
+        const cartList = JSON.parse(localStorage.getItem("cart")) || [];
+
+        const item = cartList[index];
+        document.getElementById("itemName").value = item.itemName;
+        document.getElementById("itemPrice").value = item.itemPrice;
+
+        updateIndex = index;
+        document.getElementById("addItemBtn").innerText = "Update Item";
+      }
+
+      function removeAllProduct() {
+        const btnRemoveAllProduct = document.getElementById("clearCartBtn");
+        if (confirm("Do you want to really delete all of your product?")) {
+          localStorage.removeItem("cart");
+          displayData();
+          displayDataPurchased();
+        } else {
+          displayData();
+        }
+      }
+
+      function purchaseitem(index) {
+        const cartList = JSON.parse(localStorage.getItem("cart")) || [];
+        const purchasedList =
+          JSON.parse(localStorage.getItem("purchased")) || [];
+
+        const selectedItem = cartList[index];
+
+        purchasedList.push(selectedItem);
+
+        cartList.splice(index, 1);
+
+        localStorage.setItem("cart", JSON.stringify(cartList));
+        localStorage.setItem("purchased", JSON.stringify(purchasedList));
+
+        displayData();
+        displayDataPurchased();
+
+        const audioBuy = new Audio("/audio/Arigatou - Anime Sound Effect (HD).mp3");
+        audioBuy.play();
+      }
+
+
+      function displayDataPurchased() {
+        const purchasedList =
+          JSON.parse(localStorage.getItem("purchased")) || [];
+        const purchasedBody = document.getElementById("tablePurchased");
+        const tableToCardPurchased = document.getElementById("display-mobile-data-purchased")
+
+        purchasedBody.innerHTML = "";
+        tableToCardPurchased.innerHTML = "";
+
+        purchasedList.forEach((item, index) => {
+          purchasedBody.innerHTML += `       
+                  <tr class="">
+                    <td class="p-3 text-sm text-center">${index + 1}</td>
+                    <td class="p-3 text-sm text-center">${item.itemName}</td>
+                    <td class="p-3 text-sm text-center">Rp${parseInt(item.itemPrice).toLocaleString("id-ID")}</td> 
+                    <td class="p-3 text-sm text-center">
+                        <button type="button"
+                            style="font-family: var(--sub-main);"
+                            class="purchaseItem p-1.5 text-base font-medium  bg-[#83AFC7] text-[#013048] rounded-full cursor-not-allowed">
+                            Purchased
+                        </button>
+                    </td>   
+                    <td class="p-3 text-sm text-center">
+                      <button type="button"
+                            style="font-family: var(--sub-main);"
+                            class="p-1.5 text-base font-medium  bg-[#DF9394] hover:bg-[#A50609] text-[#A50609] hover:text-white rounded"
+                            onclick="removeitempurchased(${index})">
+                            Delete
+                        </button>
+                    </td>
+                </tr>
+                `;
+          tableToCardPurchased.innerHTML += `
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 m-5 md:hidden">
+              <div class="bg-white border-gray-200 p-6 gap-3 rounded-lg shadow">
+                <div class="flex items-center justify-between space-x-2 text-sm">
+                  <div
+                    class="w-10 h-10 font-extrabold flex items-center justify-center rounded-full mb-3"
+                    style="background-color: #daf5e5; color: #009e48;"
+                  >
+                    ${index + 1}
+                  </div>
+                  <div>
+                    <button type="button"
+                            style="font-family: var(--sub-main);"
+                            class="p-1.5 text-base font-medium  bg-[#83AFC7] text-[#013048] rounded-full cursor-not-allowed">
+                            Purchased
+                        </button>
+                  </div>
+                </div>
+                <div
+                  style="font-family: var(--main-font2)"
+                  class="font-bold text-zinc-950 mb-1"
+                >
+                  ${item.itemName}
+                </div>
+                <div
+                  style="font-family: var(--main-font2)"
+                  class="font-bold text-zinc-950 mb-3"
+                >
+                  Rp${parseInt(item.itemPrice).toLocaleString("id-ID")}
+                </div>
+                <div class="flex justify-end space-x-2 text-sm">
+                  <button
+                    type="button"
+                    style="font-family: var(--sub-main)"
+                    class="p-1.5 text-base font-medium bg-[#DF9394] hover:bg-[#A50609] text-[#A50609] hover:text-white rounded"
+                    onclick="removeitempurchased(${index})"
+                  >
+                    Delete
+                  </button>
+                </div>
+              </div>
+            </div>
+          `
+        });
+      }
+
+      function removeitempurchased(index) {
+        const cartPurchasedList = JSON.parse(localStorage.getItem("purchased")) || [];
+        if (index < 0 || index >= cartPurchasedList.length) {
+          console.warn("Attempted to remove item with invalid index:", index);
+          return;
+        }
+
+        const itemToRemove = cartPurchasedList[index];
+
+        const isConfirmed = window.confirm(
+          `Are you sure you want to delete "${itemToRemove.itemName}"?`
+        );
+
+        if (!isConfirmed) {
+          return;
+        }
+
+        cartPurchasedList.splice(index, 1);
+        localStorage.setItem("purchased", JSON.stringify(cartPurchasedList));
+        displayDataPurchased();
+        Toastify({
+          text: "Item removed from cart",
+          duration: 3000,
+          gravity: "top", // `top` or `bottom`
+          position: "right", // `left`, `center` or `right`
+          stopOnFocus: true, // Prevents dismissing of toast on hover
+          style: {
+            background: "linear-gradient(to right, #00b09b, #96c93d)",
+          },
+        }).showToast();
+      }      
+
+      function removeAllProductPurchased() {
+        const btnRemoveAllProduct = document.getElementById("clearCartBtn");
+        if (
+          confirm("Do you want to really delete all of your purchased product?")
+        ) {
+          localStorage.removeItem("purchased");
+          displayDataPurchased();
+        } else {
+          displayDataPurchased();
+        }
+      }
+
+      window.onload = function () {
+        displayData();
+        displayDataPurchased();
+      };

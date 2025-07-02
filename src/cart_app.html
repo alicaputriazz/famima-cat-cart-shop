@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Famima Cat</title>
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="https://media.licdn.com/dms/image/v2/C510BAQHD5XgrJHLh7A/company-logo_200_200/company-logo_200_200/0/1631415975507?e=2147483647&v=beta&t=aiYzl6pFQE6SxkaZepFQzGr_TkNjtTqHqKsa1rm9vwo"
+    />
+    <link href="./output.css" rel="stylesheet" />
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Darumadrop+One&family=Mochiy+Pop+One&family=Sono:wght@200..800&display=swap");
+      :root {
+        --main-blue: #0091d4;
+        --main-green: #009e48;
+        --main-font1: "Mochiy Pop One", sans-serif;
+        --main-font2: "Sono", monospace;
+        --sub-main: "Darumadrop One", sans-serif;
+      }
+      @keyframes goyang {
+        0% {
+          transform: rotate(0deg);
+        }
+        25% {
+          transform: rotate(-10deg);
+        }
+        50% {
+          transform: rotate(0deg);
+        }
+        75% {
+          transform: rotate(10deg);
+        }
+        100% {
+          transform: rotate(0deg);
+        }
+      }
+
+      .animate-goyang {
+        animation: goyang 2s ease-in-out infinite;
+      }
+    </style>
+  </head>
+  <body>
+    <iframe
+      width="0"
+      height="0"
+      style="display: none"
+      src="https://www.youtube.com/embed/RpYWYFFJBxE?autoplay=1&loop=1&playlist=RpYWYFFJBxE"
+      frameborder="0"
+      allow="autoplay"
+    ></iframe>
+
+    <section
+      class="bg-cover bg-top bg-repeat-y w-full h-full py-24 blur-[5px]"
+      style="background-image: url('/img/Family-Mart-Interior.png')"
+    >
+      <!-- White card box (base-tab) -->
+      <div
+        class="relative mx-auto w-[90%] md:w-4/5 bg-white rounded-2xl shadow-xl z-10"
+      >
+        <!-- Logo di atas box -->
+        <div
+          class="absolute z-[-1] -top-10 sm:-top-14 md:-top-12 lg:-top-16 left-1/2 -translate-x-1/2 bg-white py-3 px-5 sm:px-8 sm:py-4 lg:px-12 lg:py-6 rounded-t-2xl"
+        >
+          <img
+            src="/img/Family-Mart-Logo.png"
+            alt="FamilyMart"
+            class="w-[120px] sm:w-[160px] lg:w-[248px] h-auto mx-auto"
+          />
+        </div>
+
+        <!-- Content dalam box -->
+        <div class="p-6 space-y-6">
+          <!-- Header -->
+          <div class="flex flex-col md:flex-row gap-6">
+            <!-- Kiri (gambar kucing) -->
+            <div
+              class="flex-shrink-0 w-full md:w-1/4 flex items-center justify-center"
+            >
+              <img
+                src="/img/Cat-Family-Mart.png"
+                alt="Cat"
+                class="w-full max-w-[240px] animate-goyang"
+              />
+            </div>
+
+            <!-- Kanan (form input) -->
+            <div class="w-full md:w-3/4">
+              <h3
+                class="text-xl text-start mb-4 mt-8"
+                style="font-family: var(--main-font1); color: black"
+              >
+                Find something you like? Add it to your cart!
+              </h3>
+              <form id="cartForm" class="space-y-4 mt-5">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <label
+                      for="itemName"
+                      class="flex items-center gap-2 mb-1 text-xl font-bold"
+                      style="font-family: var(--main-font2)"
+                    >
+                      <img
+                        src="/img/sparkle-wink-blink-bright-free-png (1).webp"
+                        alt="Icon"
+                        class="w-5 h-5"
+                      />
+                      Name
+                    </label>
+                    <input
+                      type="text"
+                      id="itemName"
+                      class="w-full border rounded px-3 py-2 font-medium"
+                      style="border-color: var(--main-blue); border-width: 3px"
+                    />
+                  </div>
+                  <div>
+                    <label
+                      for="itemPrice"
+                      class="flex items-center gap-2 mb-1 text-xl font-bold"
+                    >
+                      <img
+                        src="/img/sparkle-wink-blink-bright-free-png (1).webp"
+                        alt="Icon"
+                        class="w-5 h-5"
+                      />
+                      Price
+                    </label>
+                    <input
+                      type="number"
+                      id="itemPrice"
+                      class="w-full border rounded px-3 py-2 font-medium"
+                      style="border-color: var(--main-blue); border-width: 3px"
+                    />
+                  </div>
+                </div>
+
+                <button
+                  type="button"
+                  id="addItemBtn"
+                  onclick="addToCart()"
+                  class="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600 transition"
+                  style="font-family: var(--main-font1)"
+                >
+                  + Let’s Add This
+                </button>
+              </form>
+            </div>
+          </div>
+
+          <!-- Divider -->
+          <hr class="border-t border-gray-300" />
+
+          <!-- Cart Table -->
+          <div>
+            <div class="flex justify-center items-center gap-2 mb-4">
+              <img
+                src="/img/sparkle-wink-blink-bright-free-png (1).webp"
+                alt="Left Icon"
+                class="w-10 h-10"
+              />
+              <h4
+                class="text-xl font-semibold"
+                style="font-family: var(--main-font1)"
+              >
+                What’s in Your Cart
+              </h4>
+              <img
+                src="/img/sparkle-wink-blink-bright-free-png (1).webp"
+                alt="Right Icon"
+                class="w-10 h-10"
+              />
+            </div>
+
+            <div
+              class="overflow-auto hidden md:block border border-gray-200 rounded-lg dark:border-neutral-700"
+            >
+              <table
+                class="w-full divide-y divide-gray-200 dark:divide-neutral-700"
+              >
+                <thead
+                  style="
+                    font-family: var(--main-font2);
+                    color: var(--main-blue);
+                    background-color: #d2effc;
+                  "
+                >
+                  <tr class="font-medium text-2xl">
+                    <th
+                      class="p-3 text-sm font-semibold tracking-wide text-center"
+                    >
+                      Number
+                    </th>
+                    <th
+                      class="p-3 text-sm font-semibold tracking-wide text-center"
+                    >
+                      Item Name
+                    </th>
+                    <th
+                      class="p-3 text-sm font-semibold tracking-wide text-center"
+                    >
+                      Price
+                    </th>
+                    <th
+                      class="p-3 text-sm font-semibold tracking-wide text-center"
+                    >
+                      Action
+                    </th>
+                  </tr>
+                </thead>
+                <tbody
+                  id="table"
+                  class="font-bold text-zinc-950"
+                  style="font-family: var(--main-font2)"
+                ></tbody>
+              </table>
+            </div>
+
+            <div id="display-mobile-data"></div>
+
+            <!-- <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 md:hidden">
+              <div class="bg-white border-gray-200 p-6 gap-3 rounded-lg shadow">
+                <div
+                  class="w-10 h-10 bg-[#d2effc] text-[#0091d4] font-extrabold flex items-center justify-center rounded-full mb-3"
+                >
+                  ${index + 1}
+                </div>
+                <div
+                  style="font-family: var(--main-font2)"
+                  class="font-bold text-zinc-950 mb-1"
+                >
+                  ${item.itemName}
+                </div>
+                <div
+                  style="font-family: var(--main-font2)"
+                  class="font-bold text-zinc-950 mb-3"
+                >
+                  Rp${item.itemPrice}
+                </div>
+                <div class="flex justify-end space-x-2 text-sm">
+                  <button
+                    type="button"
+                    style="font-family: var(--sub-main)"
+                    class="p-1.5 text-base font-medium bg-[#84B699] hover:bg-[#0A6D32] text-[#0A6D32] hover:text-white rounded"
+                    onclick="purchaseitem(${index})"
+                  >
+                    Buy
+                  </button>
+                  <button
+                    type="button"
+                    style="font-family: var(--sub-main)"
+                    class="p-1.5 text-base font-medium bg-[#F8DE88] hover:bg-[#CE6012] text-[#CE6012] hover:text-white rounded"
+                    onclick="updateitem(${index})"
+                  >
+                    Edit
+                  </button>
+                  <button
+                    type="button"
+                    style="font-family: var(--sub-main)"
+                    class="p-1.5 text-base font-medium bg-[#DF9394] hover:bg-[#A50609] text-[#A50609] hover:text-white rounded"
+                    onclick="removeitem(${index})"
+                  >
+                    Delete
+                  </button>
+                </div>
+              </div>
+            </div> -->
+
+            <!-- Footer total -->
+            <div class="flex items-center justify-between mt-4">
+              <h3
+                class="text-lg font-extrabold"
+                style="font-family: var(--main-font2)"
+              >
+                You’ll Pay: Rp<span id="totalPrice">0</span>
+              </h3>
+              <button
+                style="font-family: var(--main-font1)"
+                class="bg-[#A50609] text-white text-xs sm:text-sm px-2 sm:px-4 py-1 sm:py-2 rounded"
+                onclick="removeAllProduct()"
+              >
+                Clear All Cart
+              </button>
+            </div>
+          </div>
+
+          <!-- Divider -->
+          <hr class="border-t border-gray-300" />
+
+          <!-- Cart Purchased Table -->
+          <div>
+            <div class="flex justify-center items-center gap-2 mb-4">
+              <img
+                src="/img/sparkle-wink-blink-bright-free-png (1).webp"
+                alt="Left Icon"
+                class="w-10 h-10"
+              />
+              <h3
+                class="text-xl font-semibold"
+                style="font-family: var(--main-font1)"
+              >
+                Things You’ve Picked Up
+              </h3>
+              <img
+                src="/img/sparkle-wink-blink-bright-free-png (1).webp"
+                alt="Right Icon"
+                class="w-10 h-10"
+              />
+            </div>
+
+            <div
+              class="overflow-auto hidden md:block border border-gray-200 rounded-lg dark:border-neutral-700"
+            >
+              <table
+                class="w-full divide-y divide-gray-200 dark:divide-neutral-700"
+              >
+                <thead
+                  style="
+                    font-family: var(--main-font2);
+                    color: var(--main-green);
+                    background-color: #daf5e5;
+                  "
+                >
+                  <tr class="font-medium text-2xl">
+                    <th
+                      class="p-3 text-sm font-semibold tracking-wide text-center"
+                    >
+                      Number
+                    </th>
+                    <th
+                      class="p-3 text-sm font-semibold tracking-wide text-center"
+                    >
+                      Item Name
+                    </th>
+                    <th
+                      class="p-3 text-sm font-semibold tracking-wide text-center"
+                    >
+                      Price
+                    </th>
+                    <th
+                      class="p-3 text-sm font-semibold tracking-wide text-center"
+                    >
+                      Status
+                    </th>
+                    <th
+                      class="p-3 text-sm font-semibold tracking-wide text-center"
+                    >
+                      Action
+                    </th>
+                  </tr>
+                </thead>
+                <tbody
+                  id="tablePurchased"
+                  class="font-bold text-zinc-950"
+                  style="font-family: var(--main-font2)"
+                ></tbody>
+              </table>
+            </div>
+
+            <div id="display-mobile-data-purchased"></div>
+
+            <!-- <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 md:hidden">
+              <div class="bg-white border-gray-200 p-6 gap-3 rounded-lg shadow">
+                <div class="flex items-center justify-between space-x-2 text-sm">
+                  <div
+                    class="w-10 h-10 bg-[#d2effc] text-[#0091d4] font-extrabold flex items-center justify-center rounded-full mb-3"
+                  >
+                    ${index + 1}
+                  </div>
+                  <div>
+                    <button type="button"
+                            style="font-family: var(--sub-main);"
+                            class="p-1.5 text-base font-medium  bg-[#83AFC7] text-[#013048] rounded-full cursor-not-allowed">
+                            Purchased
+                        </button>
+                  </div>
+                </div>
+                <div
+                  style="font-family: var(--main-font2)"
+                  class="font-bold text-zinc-950 mb-1"
+                >
+                  ${item.itemName}
+                </div>
+                <div
+                  style="font-family: var(--main-font2)"
+                  class="font-bold text-zinc-950 mb-3"
+                >
+                  Rp${item.itemPrice}
+                </div>
+                <div class="flex justify-end space-x-2 text-sm">
+                  <button
+                    type="button"
+                    style="font-family: var(--sub-main)"
+                    class="p-1.5 text-base font-medium bg-[#84B699] hover:bg-[#0A6D32] text-[#0A6D32] hover:text-white rounded"
+                    onclick="purchaseitem(${index})"
+                  >
+                    Buy
+                  </button>
+                  <button
+                    type="button"
+                    style="font-family: var(--sub-main)"
+                    class="p-1.5 text-base font-medium bg-[#F8DE88] hover:bg-[#CE6012] text-[#CE6012] hover:text-white rounded"
+                    onclick="updateitem(${index})"
+                  >
+                    Edit
+                  </button>
+                  <button
+                    type="button"
+                    style="font-family: var(--sub-main)"
+                    class="p-1.5 text-base font-medium bg-[#DF9394] hover:bg-[#A50609] text-[#A50609] hover:text-white rounded"
+                    onclick="removeitem(${index})"
+                  >
+                    Delete
+                  </button>
+                </div>
+              </div>
+            </div> -->
+
+            <!-- Footer total -->
+            <div class="flex justify-end items-center mt-4">
+              <button
+                style="font-family: var(--main-font1)"
+                class="bg-[#A50609] text-white text-xs sm:text-sm px-2 sm:px-4 py-1 sm:py-2 rounded"
+                onclick="removeAllProductPurchased()"
+              >
+                Clear All Purchased Items
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <script src="/script/script.js"></script>
+  </body>
+</html>

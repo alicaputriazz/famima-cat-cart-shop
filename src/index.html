@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="./output.css" rel="stylesheet" />
+    <title>Welcome To Famima Cat</title>
+    <link rel="icon" type="image/x-icon" href="https://media.licdn.com/dms/image/v2/C510BAQHD5XgrJHLh7A/company-logo_200_200/company-logo_200_200/0/1631415975507?e=2147483647&v=beta&t=aiYzl6pFQE6SxkaZepFQzGr_TkNjtTqHqKsa1rm9vwo" />
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Darumadrop+One&family=Mochiy+Pop+One&family=Sono:wght@200..800&display=swap");
+      :root {
+        --main-blue: #0091d4;
+        --main-green: #009e48;
+        --main-font1: "Mochiy Pop One", sans-serif;
+        --main-font2: "Sono", monospace;
+        --sub-main: "Darumadrop One", sans-serif;
+      }
+    </style>
+  </head>
+  <body>
+    <section>
+      <div class="relative h-screen w-screen">
+        <img
+          style="filter: blur(5px);"
+          src="/img/Background-Family-Mart-New.jpg"
+          alt=""
+          class="absolute inset-0 h-full w-full object-cover"
+        />
+        <div
+          class="relative z-10 flex flex-col items-center justify-center h-full gap-6 px-4"
+        >
+          <img
+            src="/img/Family-Mart.png"
+            alt=""
+            class="w-[300px] h-auto md:w-[673px] md:h-[230px]"
+          />
+          <a href="/src/cart_app.html"
+            ><button
+              id="btnStartNow"
+              class="bg-blue-600 text-white px-8 py-3 rounded-lg hover:bg-blue-700 transition font-medium text-lg"
+              style="font-family: var(--main-font1)"
+            >
+              start now
+            </button></a
+          >
+        </div>
+      </div>
+    </section>
+    <script>
+      let startNow = document.getElementById("btnStartNow");
+      function btnStartNow(e) {
+        e.preventDefault();
+
+        let audioStart = new Audio("/audio/FamilyMart_Chime.mp3");
+        audioStart.play();
+
+        setTimeout(() => {
+          window.location.href = "/src/cart_app.html";
+        }, 7000);
+      }
+      startNow.addEventListener("click", btnStartNow);
+    </script>
+  </body>
+</html>
