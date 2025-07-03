@@ -12,6 +12,7 @@
     <link href="src/output.css" rel="stylesheet" />
     <style>
       @import url("https://fonts.googleapis.com/css2?family=Darumadrop+One&family=Mochiy+Pop+One&family=Sono:wght@200..800&display=swap");
+      @import "compass/css3";
       :root {
         --main-blue: #0091d4;
         --main-green: #009e48;
@@ -19,6 +20,20 @@
         --main-font2: "Sono", monospace;
         --sub-main: "Darumadrop One", sans-serif;
       }
+
+      .btn{
+        font-family: var(--sub-main);
+        cursor:pointer;
+        display:inline-block;
+        padding:5px;
+        background: var(--main-green);
+        border-radius: 10px;
+        color: #fff;
+        text-transform:uppercase;
+        line-height:5px;
+
+      }
+
       @keyframes goyang {
         0% {
           transform: rotate(0deg);
@@ -47,14 +62,14 @@
     </style>
   </head>
   <body>
-    <iframe
+    <!-- <iframe
       width="0"
       height="0"
       style="display: none"
       src="https://www.youtube.com/embed/RpYWYFFJBxE?autoplay=1&loop=1&playlist=RpYWYFFJBxE"
       frameborder="0"
       allow="autoplay"
-    ></iframe>
+    ></iframe> -->
 
     <section
       class="bg-cover bg-top bg-repeat-y w-full h-full py-24 blur-[5px]"
@@ -77,16 +92,30 @@
 
         <!-- Content dalam box -->
         <div class="p-6 space-y-6">
-          <!-- Header -->
-          <div class="flex flex-col md:flex-row gap-6">
+          <!-- Header -->  
+          <div class="flex flex-col md:flex-row gap-4">
             <!-- Kiri (gambar kucing) -->
+            <div class="">
+              <audio
+                id="nyan"
+                src="/audio/1 Hour of Japanese Convenience Store Sounds _ F A M I L Y M A R T「ファミリーマート」 [1KFmpyzRTcA].mp3"
+                preload="metadata"
+                type="audio/mpeg"
+              >
+                Your browser does not support the audio element.
+              </audio>
+
+              <a class="flex items-center gap-2 btn" id="nyan-btn">
+                <img style="height: 50px; width: 50px;" src="/img/138418344_1cf700e7-8ad7-4b8d-8ed1-7b6e362748ab.svg" alt="">
+              </a>
+            </div>
             <div
               class="flex-shrink-0 w-full md:w-1/4 flex items-center justify-center"
             >
               <img
                 src="/img/Cat-Family-Mart.png"
                 alt="Cat"
-                class="w-full max-w-[240px] animate-goyang"
+                class="w-full max-w-[250px] animate-goyang"
               />
             </div>
 
@@ -103,7 +132,7 @@
                   <div>
                     <label
                       for="itemName"
-                      class="flex items-center gap-2 mb-1 text-xl font-bold"
+                      class="flex items-center mb-1 text-lg sm:text-base font-bold"
                       style="font-family: var(--main-font2)"
                     >
                       <img
@@ -122,8 +151,28 @@
                   </div>
                   <div>
                     <label
+                      for="itemCategory"
+                      class="flex items-center mb-1 text-lg sm:text-base font-bold"
+                      style="font-family: var(--main-font2)"
+                    >
+                      <img
+                        src="/img/sparkle-wink-blink-bright-free-png (1).webp"
+                        alt="Icon"
+                        class="w-5 h-5"
+                      />
+                      Category
+                    </label>
+                    <input
+                      type="text"
+                      id="itemCategory"
+                      class="w-full border rounded px-3 py-2 font-medium"
+                      style="border-color: var(--main-blue); border-width: 3px"
+                    />
+                  </div>
+                  <div>
+                    <label
                       for="itemPrice"
-                      class="flex items-center gap-2 mb-1 text-xl font-bold"
+                      class="flex items-center mb-1 text-lg sm:text-base font-bold"
                     >
                       <img
                         src="/img/sparkle-wink-blink-bright-free-png (1).webp"
@@ -139,13 +188,32 @@
                       style="border-color: var(--main-blue); border-width: 3px"
                     />
                   </div>
+                  <div >
+                    <label
+                      for="itemQuantity"
+                      class="flex items-center gap-2 mb-1 text-lg sm:text-base font-bold"
+                    >
+                      <img
+                        src="/img/sparkle-wink-blink-bright-free-png (1).webp"
+                        alt="Icon"
+                        class="w-5 h-5"
+                      />
+                      Quantity
+                    </label>
+                    <input
+                      type="number"
+                      id="itemQuantity"
+                      class="w-full border rounded px-3 py-2 font-medium"
+                      style="border-color: var(--main-blue); border-width: 3px"
+                    />
+                  </div>
                 </div>
 
                 <button
                   type="button"
                   id="addItemBtn"
                   onclick="addToCart()"
-                  class="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600 transition"
+                  class="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600 transition sm:mt-2"
                   style="font-family: var(--main-font1)"
                 >
                   + Let’s Add This
@@ -158,7 +226,7 @@
           <hr class="border-t border-gray-300" />
 
           <!-- Cart Table -->
-          <div>
+          <div class="sm:mt-3 sm:mb-2">
             <div class="flex justify-center items-center gap-2 mb-4">
               <img
                 src="/img/sparkle-wink-blink-bright-free-png (1).webp"
@@ -205,7 +273,17 @@
                     <th
                       class="p-3 text-sm font-semibold tracking-wide text-center"
                     >
+                      Product Category
+                    </th>
+                    <th
+                      class="p-3 text-sm font-semibold tracking-wide text-center"
+                    >
                       Price
+                    </th>
+                    <th
+                      class="p-3 text-sm font-semibold tracking-wide text-center"
+                    >
+                      Quantity
                     </th>
                     <th
                       class="p-3 text-sm font-semibold tracking-wide text-center"
@@ -247,7 +325,7 @@
           <hr class="border-t border-gray-300" />
 
           <!-- Cart Purchased Table -->
-          <div>
+          <div class="sm:mt-3 sm:mb-2">
             <div class="flex justify-center items-center gap-2 mb-4">
               <img
                 src="/img/sparkle-wink-blink-bright-free-png (1).webp"
@@ -294,7 +372,17 @@
                     <th
                       class="p-3 text-sm font-semibold tracking-wide text-center"
                     >
+                      Product Category
+                    </th>
+                    <th
+                      class="p-3 text-sm font-semibold tracking-wide text-center"
+                    >
                       Price
+                    </th>
+                    <th
+                      class="p-3 text-sm font-semibold tracking-wide text-center"
+                    >
+                      Quantity
                     </th>
                     <th
                       class="p-3 text-sm font-semibold tracking-wide text-center"
