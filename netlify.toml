@@ -1,3 +1,2 @@
 [build]
   publish = "."
-  external_node_modules = ["huggable"]
