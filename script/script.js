@@ -131,7 +131,7 @@
                     ${item.itemCategory}
                   </div>
                   </div>
-                  <div class="button-action justify-end flex space-x-2">
+                  <div class="button-action justify-end flex space-x-2 mt-3">
                     <button
                       type="button"
                       style="font-family: var(--sub-main)"
