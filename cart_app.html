@@ -15,7 +15,7 @@
     />
 
     <link href="src/output.css" rel="stylesheet" />
-    <link rel="stylesheet" href="src/input.css">
+    <link rel="stylesheet" href="src/input.css" />
     <style>
       @import url("https://fonts.googleapis.com/css2?family=Darumadrop+One&family=Mochiy+Pop+One&family=Sono:wght@200..800&display=swap");
       @import "compass/css3";
@@ -27,17 +27,16 @@
         --sub-main: "Darumadrop One", sans-serif;
       }
 
-      .btn{
+      .btn {
         font-family: var(--sub-main);
-        cursor:pointer;
-        display:inline-block;
-        padding:5px;
+        cursor: pointer;
+        display: inline-block;
+        padding: 5px;
         background: var(--main-green);
         border-radius: 10px;
         color: #fff;
-        text-transform:uppercase;
-        line-height:5px;
-
+        text-transform: uppercase;
+        line-height: 5px;
       }
 
       @keyframes goyang {
@@ -89,7 +88,7 @@
 
         <!-- Content dalam box -->
         <div class="p-6 space-y-6">
-          <!-- Header -->  
+          <!-- Header -->
           <div class="flex flex-col md:flex-row gap-4">
             <!-- Kiri (gambar kucing) -->
             <div class="">
@@ -103,7 +102,11 @@
               </audio>
 
               <a class="flex items-center gap-2 btn" id="nyan-btn">
-                <img style="height: 50px; width: 50px;" src="/img/138418344_1cf700e7-8ad7-4b8d-8ed1-7b6e362748ab.svg" alt="">
+                <img
+                  style="height: 50px; width: 50px"
+                  src="/img/138418344_1cf700e7-8ad7-4b8d-8ed1-7b6e362748ab.svg"
+                  alt=""
+                />
               </a>
             </div>
             <div
@@ -122,7 +125,8 @@
                 class="text-xl text-start mb-4 mt-8"
                 style="font-family: var(--main-font1); color: black"
               >
-                Find something you like? <br> 🛒 Add your grocery item to the cart!
+                Find something you like? <br />
+                🛒 Add your grocery item to the cart!
               </h3>
               <form id="cartForm" class="space-y-4 mt-5">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -188,7 +192,7 @@
                       style="border-color: var(--main-blue); border-width: 3px"
                     />
                   </div>
-                  <div >
+                  <div>
                     <label
                       for="itemQuantity"
                       class="flex items-center gap-2 mb-1 text-lg sm:text-base font-bold"
@@ -295,13 +299,18 @@
             <div id="display-mobile-data"></div>
 
             <!-- Footer total -->
-            <div class="flex items-center justify-between mt-4" style="margin-top: 15px;">
+            <div
+              class="flex items-start justify-start mt-4"
+              style="margin-top: 15px"
+            >
               <h3
                 class="text-lg font-extrabold"
                 style="font-family: var(--main-font2)"
               >
                 You’ll Pay 🧾 Rp<span id="totalPrice">0</span>
               </h3>
+            </div>
+            <div class="flex items-end justify-end mt-4">
               <button
                 id="removeAllProduct"
                 style="font-family: var(--main-font1)"
@@ -446,7 +455,10 @@
             </div> -->
 
             <!-- Footer total -->
-            <div class="flex justify-end items-center mt-4" style="margin-top: 15px;">
+            <div
+              class="flex justify-end items-center mt-4"
+              style="margin-top: 15px"
+            >
               <button
                 id="removeAllProductPurchased"
                 style="font-family: var(--main-font1)"

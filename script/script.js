@@ -99,7 +99,7 @@
                 `;
           tableToCard.innerHTML += `
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4 m-5 md:hidden">
-              <div class="bg-white border-gray-200 space-y-3 p-6 gap-3 rounded-lg shadow">
+              <div class="bg-white space-y-3 p-6 gap-3 rounded-lg shadow" style="border-color: #0091d4;">
                 <div
                   class="w-10 h-10 bg-[#d2effc] text-[#0091d4] font-extrabold flex items-center justify-center rounded-full mb-3"
                 >
@@ -314,7 +314,7 @@
                 `;
           tableToCardPurchased.innerHTML += `
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4 m-5 md:hidden">
-              <div class="bg-white border-gray-200 p-6 gap-3 rounded-lg shadow">
+              <div class="bg-white p-6 gap-3 rounded-lg shadow" style="border-color: #009e48;">
                 <div class="flex items-center justify-between space-x-2 text-sm">
                   <div
                     class="w-10 h-10 font-extrabold flex items-center justify-center rounded-full mb-3"
