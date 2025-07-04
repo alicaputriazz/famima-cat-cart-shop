@@ -12,4 +12,5 @@ button#addItemBtn {
 
 .button-action {
     gap: 0.2rem;
+    margin-top: 5px;
 }
