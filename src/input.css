@@ -1,1 +1,15 @@
 @import "tailwindcss";
+button#addItemBtn {
+    margin-top: 20px;
+}
+.divider {
+    margin-top: 40px !important;
+}
+
+.cart-table .purchase-table {
+    margin-top: 40px !important;
+}
+
+.button-action {
+    gap: 0.2rem;
+}

@@ -80,7 +80,7 @@
                             style="font-family: var(--sub-main);"
                             class="purchaseItem p-1.5 text-base font-medium  bg-[#84B699] hover:bg-[#0A6D32] text-[#0A6D32] hover:text-white rounded"
                             onclick="purchaseitem(${index})">
-                            Buy
+                            Checkout 
                         </button>
                         <button type="button"
                             style="font-family: var(--sub-main);"
@@ -130,14 +130,15 @@
                   >
                     ${item.itemCategory}
                   </div>
-                  <div class="flex space-x-2">
+                  </div>
+                  <div class="button-action justify-end flex space-x-2">
                     <button
                       type="button"
                       style="font-family: var(--sub-main)"
                       class="purchaseItem p-1.5 text-base font-medium bg-[#84B699] hover:bg-[#0A6D32] text-[#0A6D32] hover:text-white rounded"
                       onclick="purchaseitem(${index})"
                     >
-                      Buy
+                      Checkout 
                     </button>
                     <button
                       type="button"
@@ -155,7 +156,6 @@
                     >
                       Delete
                     </button>
-                  </div>
                 </div>
               </div>
             </div>
@@ -298,8 +298,8 @@
                     <td class="p-3 text-sm text-center">
                         <button type="button"
                             style="font-family: var(--sub-main);"
-                            class="purchaseItem p-1.5 text-base font-medium  bg-[#83AFC7] text-[#013048] rounded-full cursor-not-allowed">
-                            Purchased
+                            class="purchaseItem p-1.5 text-base font-medium  bg-gray-300 text-[#013048] rounded-full cursor-not-allowed">
+                            ✅ Purchased
                         </button>
                     </td>   
                     <td class="p-3 text-sm text-center">
@@ -325,8 +325,8 @@
                   <div>
                     <button type="button"
                             style="font-family: var(--sub-main);"
-                            class="p-1.5 text-base font-medium  bg-[#83AFC7] text-[#013048] rounded-full cursor-not-allowed">
-                            Purchased
+                            class="p-1.5 text-base font-medium bg-gray-300 text-[#013048] rounded-full cursor-not-allowed">
+                            ✅ Purchased
                         </button>
                   </div>
                 </div>
