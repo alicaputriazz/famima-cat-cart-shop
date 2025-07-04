@@ -158,7 +158,7 @@
                     </button>
                 </div>
               </div>
-            </div>
+            </div>            
           `;
           total += parseInt(item.itemPrice) * parseInt(item.itemQuantity);
         });
